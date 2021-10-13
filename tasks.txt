@@ -1,0 +1,8 @@
+# hypixel bazaar api
+- 5/10/30 minute trend tracker
+# show current prices for items
+- best flips/margins sorted by demand (buy/sell moving week)
+
+key:
+    - is to-do
+    # is done
