@@ -8,9 +8,8 @@ const API_KEY = process.env['API_KEY']
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('itemstats')
-        .setDescription('Shows basic statistics on an item')
-        .addStringOption(option => option.setName('item').setDescription('The skyblock ID of the item you want to view stats for.').setRequired(true)),
+        .setName('bestflips')
+        .setDescription('Shows the best flips at the moment'),
     async execute(interaction) {
         let data = '';
         https.get('https://api.hypixel.net/skyblock/bazaar?key=' + API_KEY, (resp) => {
@@ -20,10 +19,9 @@ module.exports = {
         resp.on('end', () => {
             let input = interaction.options.getString('item').toUpperCase()
             data = JSON.parse(data)
-            const fuse = new Fuse(Object.keys(data.products))
-            input = fuse.search(input)[0].item
             // ${JSON.stringify(data.products[input].quick_status)}
             try {
+                console.log(input)
             let title = JSON.stringify(data.products[input].quick_status.productId)
             title = title.substring(0, title.length - 1).substring(1);
             interaction.reply({ embeds: [new Discord.MessageEmbed()

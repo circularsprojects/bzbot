@@ -1,24 +1,13 @@
 const fs = require('fs');
 const dotenv = require('dotenv');
-const https = require('https');
 dotenv.config();
 const TOKEN = process.env['TOKEN'];
 const TEST_GUILD_ID = process.env['TEST_GUILD_ID'];
 
-const {
-    REST
-} = require('@discordjs/rest');
-const {
-    Routes
-} = require('discord-api-types/v9');
-// Require the necessary discord.js classes
-const {
-    Client,
-    Intents,
-    Collection
-} = require('discord.js');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
+const { Client, Intents, Collection } = require('discord.js');
 
-// Create a new client instance
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS]
 });
@@ -27,7 +16,6 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 const commands = [];
 
-// Creating a collection for commands in client
 client.commands = new Collection();
 
 for (const file of commandFiles) {
@@ -36,10 +24,9 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
-// When the client is ready, this only runs once
 client.once('ready', () => {
     console.log('Ready!');
-    // Registering the commands in the client
+    client.user.setActivity("IN DEVELOPMENT (v0.2)");
     const CLIENT_ID = client.user.id;
     const rest = new REST({
         version: '9'
